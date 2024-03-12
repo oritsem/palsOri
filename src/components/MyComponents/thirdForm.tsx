@@ -13,6 +13,7 @@ import { Score } from "./score";
 
 import { z } from "zod";
 import { ChangeEvent, useState } from "react";
+import axios, { AxiosError } from "axios";
 
 interface IThirdFormProps {
   prevStep: () => void;
@@ -22,9 +23,7 @@ interface IThirdFormProps {
 
 const UserDetailsSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
-  phoneNumber: z
-    .string()
-    .regex(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+  phoneNumber: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits"),
   address: z.string().min(1, "Address is required"),
 });
 
@@ -43,13 +42,30 @@ const initialFormState: FormFields = {
 const ThirdFormContant = ({ prevStep, nextStep, score }: IThirdFormProps) => {
   const [form, setForm] = useState<FormFields>(initialFormState);
 
-  const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleForm = async (e: ChangeEvent<HTMLInputElement>) => {
     console.log(`${e.target.id} : ${e.target.value}`);
 
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+
+    if (e.target.name === "address") {
+      const val = e.target.value;
+      try {
+        const res = await axios.post(
+          "https://api.pricer.staging.propdo.ai/search/predictions",
+          {
+            text: val,
+            token: "a123456",
+          }
+        );
+        console.log(JSON.stringify(res.data, null, 2));
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        console.log(axiosError.response?.data);
+      }
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
