@@ -3,16 +3,14 @@ import React from "react";
 import Image from "next/image";
 import BlurredCircle from "./blurredCircle";
 import ColoredText from "./coloredText";
+import * as Images from "@/images";
 
 const title = "מחפש מאמן כושר אישי שיעזור לך להתחיל להתאמן?";
 const text = "מתקשה לשפר את הבריאות ולהוריד במשקל לבדך?";
+const logo = Images.logo.src;
+const images = [Images.image2.src, Images.image1.src, Images.image3.src];
 
-interface IHeaderProps {
-  logo: string;
-  images: string[];
-}
-
-const Header = ({ logo, images }: IHeaderProps) => {
+const Header = () => {
   return (
     <div className="px-4 relative h-auto">
       <div className="max-w-4xl mx-auto relative">

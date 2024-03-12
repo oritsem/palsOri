@@ -1,17 +1,12 @@
 import { Slider } from "../ui/slider";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import {
-  handleRadioGroupChange2,
-  handleSliderChange,
-} from "@/Handlers/handlers";
-import { Dispatch, SetStateAction } from "react";
 
 interface IQuestionProps extends React.HTMLAttributes<HTMLParagraphElement> {
   index: number;
-  sliderValues: number[];
-  setSliderValues: Dispatch<SetStateAction<number[]>>;
   defaultVal?: number[];
+  scoresArray: number[];
+  updateScoresArray: (index: number, value: number) => void;
 }
 
 interface IQuestionRadioProps
@@ -19,15 +14,15 @@ interface IQuestionRadioProps
   values: { val1: string; val2: string };
   scores: { score1: number; score2: number };
   index: number;
-  radioValues: number[];
-  setRadioValues: Dispatch<SetStateAction<number[]>>;
+  scoresArray: number[];
+  updateScoresArray: (index: number, value: number) => void;
 }
 
 const QuestionSlider = ({
   index,
-  sliderValues,
-  setSliderValues,
   defaultVal,
+  scoresArray,
+  updateScoresArray,
   className,
   ...props
 }: IQuestionProps) => {
@@ -38,16 +33,14 @@ const QuestionSlider = ({
         className={`font-inter text-xl font-semibold leading-7 tracking-tight text-right ${className}`}
       />
       <Slider
-        defaultValue={defaultVal}
+        defaultValue={[scoresArray[index]]}
         min={1}
         max={10}
         className="pt-10 pb-2"
         dir="rtl"
         id="slider"
-        onValueChange={(v) =>
-          handleSliderChange(v, index, sliderValues, setSliderValues)
-        }
-      ></Slider>
+        onValueChange={(v) => updateScoresArray(index, v[0])}
+      />
       <div className="flex justify-between items-center w-full pb-6 text-gray-500 font-inter text-sm font-semibold leading-7 tracking-tight">
         <p>בכלל לא מסכים</p>
         <p>מאוד מסכים</p>
@@ -60,8 +53,8 @@ const QuestionRadio = ({
   values,
   scores,
   index,
-  radioValues,
-  setRadioValues,
+  scoresArray,
+  updateScoresArray,
   className,
   ...props
 }: IQuestionRadioProps) => {
@@ -74,17 +67,15 @@ const QuestionRadio = ({
 
       <RadioGroup
         defaultValue={
-          scores.score1 === radioValues[index] ? values.val1 : values.val2
+          scores.score1 === scoresArray[index] ? values.val1 : values.val2
         }
         className="my-10 w-1/2"
-        onValueChange={(v) =>
-          handleRadioGroupChange2(
-            v,
-            values,
-            scores,
+        onValueChange={() =>
+          updateScoresArray(
             index,
-            radioValues,
-            setRadioValues
+            scores.score1 === scoresArray[index]
+              ? scores.score2
+              : scores.score1
           )
         }
       >

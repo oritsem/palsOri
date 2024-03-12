@@ -2,16 +2,15 @@ import React from "react";
 import Image from "next/image";
 import BlurredCircle from "./blurredCircle";
 import ColoredText from "./coloredText";
+import * as Images from "@/images";
 
 const title = "! קיבלנו את הפרטים";
 const text = "מאמן כושר אישי מאזורך ייצור איתך קשר ";
+const logo = Images.logo.src;
+const images = [Images.image2.src, Images.image1.src, Images.image3.src];
 
-interface IFinalHeaderProps {
-  logo: string;
-  images: string[];
-}
 
-const FinalHeader = ({ logo, images }: IFinalHeaderProps) => {
+const FinalHeader = () => {
   return (
     <div className="px-4 relative h-auto">
       <div className="max-w-4xl mx-auto relative">

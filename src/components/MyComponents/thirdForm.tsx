@@ -10,7 +10,9 @@ import { Button } from "./button";
 import { Input } from "../ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Score } from "./score";
-import { handleChange } from "@/Handlers/handlers";
+
+import { z } from "zod";
+import { ChangeEvent, useState } from "react";
 
 interface IThirdFormProps {
   prevStep: () => void;
@@ -18,7 +20,54 @@ interface IThirdFormProps {
   score: number;
 }
 
+const UserDetailsSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+  phoneNumber: z
+    .string()
+    .regex(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+  address: z.string().min(1, "Address is required"),
+});
+
+interface FormFields {
+  fullName: string;
+  phoneNumber: string;
+  address: string;
+}
+
+const initialFormState: FormFields = {
+  fullName: "",
+  phoneNumber: "",
+  address: "",
+};
+
 const ThirdFormContant = ({ prevStep, nextStep, score }: IThirdFormProps) => {
+  const [form, setForm] = useState<FormFields>(initialFormState);
+
+  const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(`${e.target.id} : ${e.target.value}`);
+
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    // Validate the form
+    const result = UserDetailsSchema.safeParse(form);
+
+    console.log(
+      `form = ${form.fullName} | ${form.phoneNumber} | ${form.address}`
+    );
+    console.log(`res = ${result.success}`);
+
+    if (result.success) {
+      nextStep();
+    }
+  };
+
   const finalText =
     score > 50
       ? "בהתאם לציון שקבלת בשאלון  מאמן כושר אישי יעזור לך להתאמן בקביעות, לשפר את השיגך ולתרום רבות לבריאותך"
@@ -39,24 +88,27 @@ const ThirdFormContant = ({ prevStep, nextStep, score }: IThirdFormProps) => {
         <CardContent className="w-1/2 mx-auto justify-center items-center text-right">
           <Label>שם מלא</Label>
           <Input
-            onChange={handleChange}
-            id="firstName"
+            onChange={handleForm}
+            id="fullName"
+            name="fullName"
             placeholder="שם מלא"
             className="mb-5"
           />
 
           <Label>מספר טלפו</Label>
           <Input
-            onChange={handleChange}
+            onChange={handleForm}
             id="phoneNumber"
+            name="phoneNumber"
             placeholder="מספר טלפו"
             className="mb-5"
           />
 
           <Label>כתובת</Label>
           <Input
-            onChange={handleChange}
+            onChange={handleForm}
             id="address"
+            name="address"
             placeholder="כתובת"
             className="mb-5"
           />
@@ -72,7 +124,7 @@ const ThirdFormContant = ({ prevStep, nextStep, score }: IThirdFormProps) => {
           <Button
             bgcolor={"gradient"}
             className="ml-20 mr-20"
-            onClick={nextStep}
+            onClick={handleSubmit}
           >
             שלח
           </Button>

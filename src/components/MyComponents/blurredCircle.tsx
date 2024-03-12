@@ -1,29 +1,28 @@
 import React from "react";
 
 interface IBlurredCircleProps {
-  top?: string;
-  left?: string;
-  bottom?: string;
-  right?: string;
+  bottom: string;
+  right: string;
 }
 
-const BlurredCircle = ({ top, bottom, left, right }: IBlurredCircleProps) => {
-  const circleStyle: React.CSSProperties = {
-    background:
-      "linear-gradient(175.6deg, rgba(249, 77, 80, 0.3) 34.95%, rgba(237, 200, 212, 0.3) 96.43%), #F94D50",
-    width: "237px",
-    height: "237px",
-    borderRadius: "50%",
-    position: "absolute",
-    top: `${top}`,
-    bottom: `${bottom}`,
-    left: `${left}`,
-    right: `${right}`,
-    filter: "blur(150px)",
-    zIndex: -1,
-  };
-
-  return <div style={circleStyle}></div>;
+const BlurredCircle = ({ bottom, right }: IBlurredCircleProps) => {
+  return (
+    <div
+      className={`
+        absolute 
+        w-60 
+        h-60 
+        rounded-full 
+        bg-red-500 
+        filter 
+        blur-[150px] 
+        z-[-1] 
+        ${right && `right-${right}`}
+        ${bottom && `bottom-${bottom}`}
+      `}
+      style={{ bottom, right }} // TODO: Replace css with Tailwind className
+    ></div>
+  );
 };
 
 export default BlurredCircle;

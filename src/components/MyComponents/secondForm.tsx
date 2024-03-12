@@ -8,30 +8,20 @@ import {
 } from "../ui/card";
 import { QuestionRadio } from "./questions";
 import { Button } from "./button";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface ISecondFormProps {
   prevStep: () => void;
   nextStep: () => void;
-  // setScore: Dispatch<SetStateAction<number>>;
-  radioValues: number[];
-  setRadioValues: Dispatch<SetStateAction<number[]>>;
+  scoresArray: number[];
+  updateScoresArray: (index: number, value: number) => void;
 }
 
 const SecondFormContant = ({
   prevStep,
   nextStep,
-  // setScore,
-  radioValues,
-  setRadioValues,
+  scoresArray,
+  updateScoresArray,
 }: ISecondFormProps) => {
-  // const [radioValues, setRadioValues] = useState([10, 0, 0]);
-
-  // const sum = radioValues.reduce((acc, value) => acc + value, 0);
-  // useEffect(() => {
-  //   setScore(sum);
-  // }, []);
-
   return (
     <div className="px-4 w-full bg-gray-50 h-auto flex justify-center items-center text-center p-10">
       <Card>
@@ -45,9 +35,9 @@ const SecondFormContant = ({
           <QuestionRadio
             values={{ val1: "לא", val2: "כן" }}
             scores={{ score1: 10, score2: 5 }}
-            index={0}
-            radioValues={radioValues}
-            setRadioValues={setRadioValues}
+            index={8}
+            scoresArray={scoresArray}
+            updateScoresArray={updateScoresArray}
           >
             האם יש לך מנוי לחדר כושר?
           </QuestionRadio>
@@ -55,9 +45,9 @@ const SecondFormContant = ({
           <QuestionRadio
             values={{ val1: "לא", val2: "כן" }}
             scores={{ score1: 0, score2: 5 }}
-            index={1}
-            radioValues={radioValues}
-            setRadioValues={setRadioValues}
+            index={9}
+            scoresArray={scoresArray}
+            updateScoresArray={updateScoresArray}
           >
             האם הרופא אמר לך שאתה חייב לשפר את הכושר ולהתחיל להתאמן?
           </QuestionRadio>
@@ -65,9 +55,9 @@ const SecondFormContant = ({
           <QuestionRadio
             values={{ val1: "בקבוצה", val2: "לבד" }}
             scores={{ score1: 0, score2: 5 }}
-            index={2}
-            radioValues={radioValues}
-            setRadioValues={setRadioValues}
+            index={10}
+            scoresArray={scoresArray}
+            updateScoresArray={updateScoresArray}
           >
             איך אתה מעדיף להתאמן?
           </QuestionRadio>
