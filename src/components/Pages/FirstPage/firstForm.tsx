@@ -5,9 +5,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { QuestionSlider } from "./questions";
-import { Button } from "./button";
+} from "../../ui/card";
+import { TScores } from "../../../utils/scores";
+
+import { QuestionSlider } from "./questionsSlider";
+import { Button } from "../../ui/button";
 
 const questions = {
   q1: "האם אתה חושב שיש לך בעיית משמעת עצמית וקשה לך להביא את עצמך לאימון?",
@@ -22,8 +24,8 @@ const questions = {
 
 interface IStartFormProps {
   nextStep: () => void;
-  scoresArray: number[];
-  updateScoresArray: (index: number, value: number) => void;
+  scoresArray: TScores;
+  updateScoresArray: (key: keyof TScores, value: number) => void;
 }
 
 const FirstFormContant = ({
@@ -45,7 +47,7 @@ const FirstFormContant = ({
             <QuestionSlider
               key={index}
               index={index}
-              defaultVal={[scoresArray[index]]}
+              defaultVal={[scoresArray[`q${index}` as keyof TScores]]}
               scoresArray={scoresArray}
               updateScoresArray={updateScoresArray}
             >
@@ -54,7 +56,10 @@ const FirstFormContant = ({
           ))}
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button bgcolor="gradient" className="ml-20 mr-20" onClick={nextStep}>
+          <Button
+            className="bg-gradient-to-r from-red-500 to-pink-300 ml-20 mr-20 w-[144px] h-[40px] px-8 py-8 rounded-md"
+            onClick={nextStep}
+          >
             המשך
           </Button>
         </CardFooter>

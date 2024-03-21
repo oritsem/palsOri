@@ -2,10 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import BlurredCircle from "./blurredCircle";
-import ColoredText from "./coloredText";
 import * as Images from "@/images";
-
-type TitledImage = { title: string; image: string };
 
 const title = "פאלס מקשרת אותך למקצוענים באזורך";
 const footer_images = [
@@ -22,7 +19,9 @@ const Footer = () => {
         {/* Title */}
         <h1 className="font-bold text-4xl leading-60 text-center mb-4">
           <span>{title} </span>
-          <ColoredText>באפס מאמץ</ColoredText>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-300">
+            באפס מאמץ
+          </span>
         </h1>
         {/* Images */}
         <div className="flex justify-center items-center">
@@ -42,7 +41,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <BlurredCircle bottom="20px" right="150px" />
+      <BlurredCircle bottom={20} right={150} />
     </div>
   );
 };

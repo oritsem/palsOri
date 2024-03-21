@@ -2,15 +2,25 @@
 import React from "react";
 import Image from "next/image";
 import BlurredCircle from "./blurredCircle";
-import ColoredText from "./coloredText";
 import * as Images from "@/images";
 
-const title = "מחפש מאמן כושר אישי שיעזור לך להתחיל להתאמן?";
-const text = "מתקשה לשפר את הבריאות ולהוריד במשקל לבדך?";
 const logo = Images.logo.src;
 const images = [Images.image2.src, Images.image1.src, Images.image3.src];
 
-const Header = () => {
+interface IHeaderProps {
+  isLastPage?: boolean;
+}
+
+const Header = ({ isLastPage = false }: IHeaderProps) => {
+  const title =
+    isLastPage === true
+      ? "! קיבלנו את הפרטים"
+      : "מחפש מאמן כושר אישי שיעזור לך להתחיל להתאמן?";
+  const text =
+    isLastPage === true
+      ? "מאמן כושר אישי מאזורך ייצור איתך קשר "
+      : "מתקשה לשפר את הבריאות ולהוריד במשקל לבדך?";
+
   return (
     <div className="px-4 relative h-auto">
       <div className="max-w-4xl mx-auto relative">
@@ -25,7 +35,9 @@ const Header = () => {
         {/* Text */}
         <p className="font-semibold text-lg leading-48 text-center mb-8">
           <span>{text} </span>
-          <ColoredText>הגעת למקום הנכון!</ColoredText>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-300">
+            הגעת למקום הנכון!
+          </span>
         </p>
         <div className="h-10"> </div>
         {/* Images */}
@@ -43,8 +55,8 @@ const Header = () => {
         </div>
       </div>
       <div className="relative">
-        <BlurredCircle bottom="10px" right="410px" />
-        <BlurredCircle bottom="200px" right="0px" />
+        <BlurredCircle bottom={10} right={410} />
+        <BlurredCircle bottom={200} right={0} />
       </div>
       <div className="h-10"> </div>
     </div>

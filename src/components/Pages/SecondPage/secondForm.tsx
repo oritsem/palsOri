@@ -5,15 +5,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { QuestionRadio } from "./questions";
-import { Button } from "./button";
+} from "../../ui/card";
+import { QuestionRadio } from "./questionsRadio";
+import { Button } from "../../ui/button";
+import { TScores } from "../../../utils/scores";
 
 interface ISecondFormProps {
   prevStep: () => void;
   nextStep: () => void;
-  scoresArray: number[];
-  updateScoresArray: (index: number, value: number) => void;
+  scoresArray: TScores;
+  updateScoresArray: (key: keyof TScores, value: number) => void;
 }
 
 const SecondFormContant = ({
@@ -64,15 +65,13 @@ const SecondFormContant = ({
         </CardContent>
         <CardFooter className="flex justify-center">
           <Button
-            bgcolor={"gradient"}
-            className="ml-20 mr-20"
+            className="bg-gradient-to-r from-red-500 to-pink-300 ml-20 mr-20 w-[144px] h-[40px] px-8 py-8 rounded-md"
             onClick={prevStep}
           >
             חזור
           </Button>
           <Button
-            bgcolor={"gradient"}
-            className="ml-20 mr-20"
+            className="bg-gradient-to-r from-red-500 to-pink-300 ml-20 mr-20 w-[144px] h-[40px] px-8 py-8 rounded-md"
             onClick={nextStep}
           >
             המשך

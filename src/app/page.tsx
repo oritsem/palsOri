@@ -1,39 +1,46 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { TScores } from "../utils/scores";
 
 import Header from "@/components/MyComponents/header";
-import FinalHeader from "@/components/MyComponents/headerFinalPage";
 import Footer from "@/components/MyComponents/footer";
-import FirstFormContant from "@/components/MyComponents/firstForm";
-import SecondFormContant from "@/components/MyComponents/secondForm";
-import ThirdFormContant from "@/components/MyComponents/thirdForm";
+import FirstFormContant from "@/components/Pages/FirstPage/firstForm";
+import SecondFormContant from "@/components/Pages/SecondPage/secondForm";
+import ThirdFormContant from "@/components/Pages/ThirdPage/thirdForm";
+
+const scoresObject: TScores = {
+  q0: 5,
+  q1: 5,
+  q2: 5,
+  q3: 5,
+  q4: 5,
+  q5: 5,
+  q6: 5,
+  q7: 5,
+  q8: 10,
+  q9: 5,
+  q10: 0,
+};
 
 export default function Home() {
-  const [scoresArray, setScoresArray] = useState([
-    ...Array.from({ length: 8 }, () => 5),
-    10,
-    5,
-    0,
-  ]);
+  const [scoresArray, setScoresArray] = useState<TScores>(scoresObject);
 
   const totalScore = useMemo(() => {
-    const score = scoresArray.reduce((acc, val) => acc + val, 0);
+    const score = Object.values(scoresArray).reduce((acc, val) => acc + val, 0);
     return score;
   }, [scoresArray]);
 
   const [step, setStep] = useState(1);
 
-  const updateScoresArray = (index: number, value: number) => {
-    const newArray = [...scoresArray];
-    newArray[index] = value;
-    setScoresArray(newArray);
+  const updateScoresArray = (key: keyof TScores, value: number) => {
+    setScoresArray((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center py-10">
-      {step < 4 && <Header />}
-      {step === 4 && <FinalHeader />}
+      {step === 4 ? <Header isLastPage={true} /> : <Header />}
+
       {step === 1 && (
         <FirstFormContant
           nextStep={() => setStep(2)}
