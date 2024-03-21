@@ -24,14 +24,14 @@ const questions = {
 
 interface IStartFormProps {
   nextStep: () => void;
-  scoresArray: TScores;
-  updateScoresArray: (key: keyof TScores, value: number) => void;
+  scoresObject: TScores;
+  updateScoresObject: (key: keyof TScores, value: number) => void;
 }
 
 const FirstFormContant = ({
   nextStep,
-  scoresArray,
-  updateScoresArray,
+  scoresObject,
+  updateScoresObject,
 }: IStartFormProps) => {
   return (
     <div className="px-4 w-full bg-gray-50 h-auto flex justify-center items-center text-center p-10">
@@ -47,9 +47,9 @@ const FirstFormContant = ({
             <QuestionSlider
               key={index}
               index={index}
-              defaultVal={[scoresArray[`q${index}` as keyof TScores]]}
-              scoresArray={scoresArray}
-              updateScoresArray={updateScoresArray}
+              defaultVal={[scoresObject[`q${index}` as keyof TScores]]}
+              scoresObject={scoresObject}
+              updateScoresObject={updateScoresObject}
             >
               {question}
             </QuestionSlider>

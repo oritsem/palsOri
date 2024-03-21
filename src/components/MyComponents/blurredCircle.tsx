@@ -9,13 +9,11 @@ interface IBlurredCircleProps {
 const BlurredCircle = ({ bottom, right }: IBlurredCircleProps) => {
   const rightPx = `mr-${right}`;
   const bottomPx = `mb-${bottom}`;
-  console.log(rightPx, bottomPx);
   return (
-    <div className="">
-      <div
-        id="test-blured"
-        className={cn(
-          `absolute 
+    <div
+      id="test-blured"
+      className={cn(
+        `absolute 
           w-60 
           h-60 
           rounded-full 
@@ -23,11 +21,10 @@ const BlurredCircle = ({ bottom, right }: IBlurredCircleProps) => {
           filter 
           blur-[150px] 
           z-[-1]`,
-          rightPx,
-          bottomPx
-        )}
-      ></div>
-    </div>
+        rightPx,
+        bottomPx
+      )}
+    ></div>
   );
 };
 

@@ -4,15 +4,15 @@ import { TScores } from "../../../utils/scores";
 interface IQuestionProps extends React.HTMLAttributes<HTMLParagraphElement> {
   index: number;
   defaultVal?: number[];
-  scoresArray: TScores;
-  updateScoresArray: (key: keyof TScores, value: number) => void;
+  scoresObject: TScores;
+  updateScoresObject: (key: keyof TScores, value: number) => void;
 }
 
 const QuestionSlider = ({
   index,
   defaultVal,
-  scoresArray,
-  updateScoresArray,
+  scoresObject,
+  updateScoresObject,
   className,
   ...props
 }: IQuestionProps) => {
@@ -23,14 +23,14 @@ const QuestionSlider = ({
         className={`font-inter text-xl font-semibold leading-7 tracking-tight text-right ${className}`}
       />
       <Slider
-        defaultValue={[scoresArray[`q${index}` as keyof TScores]]}
+        defaultValue={[scoresObject[`q${index}` as keyof TScores]]}
         min={1}
         max={10}
         className="pt-10 pb-2"
         dir="rtl"
         id="slider"
         onValueChange={(v) =>
-          updateScoresArray(`q${index}` as keyof TScores, v[0])
+          updateScoresObject(`q${index}` as keyof TScores, v[0])
         }
       />
       <div className="flex justify-between items-center w-full pb-6 text-gray-500 font-inter text-sm font-semibold leading-7 tracking-tight">

@@ -7,16 +7,16 @@ interface IQuestionRadioProps
   values: { val1: string; val2: string };
   scores: { score1: number; score2: number };
   index: number;
-  scoresArray: TScores;
-  updateScoresArray: (key: keyof TScores, value: number) => void;
+  scoresObject: TScores;
+  updateScoresObject: (key: keyof TScores, value: number) => void;
 }
 
 const QuestionRadio = ({
   values,
   scores,
   index,
-  scoresArray,
-  updateScoresArray,
+  scoresObject,
+  updateScoresObject,
   className,
   ...props
 }: IQuestionRadioProps) => {
@@ -29,15 +29,15 @@ const QuestionRadio = ({
 
       <RadioGroup
         defaultValue={
-          scores.score1 === scoresArray[`q${index}` as keyof TScores]
+          scores.score1 === scoresObject[`q${index}` as keyof TScores]
             ? values.val1
             : values.val2
         }
         className="my-10 w-1/2"
         onValueChange={() =>
-          updateScoresArray(
+          updateScoresObject(
             `q${index}` as keyof TScores,
-            scores.score1 === scoresArray[`q${index}` as keyof TScores]
+            scores.score1 === scoresObject[`q${index}` as keyof TScores]
               ? scores.score2
               : scores.score1
           )

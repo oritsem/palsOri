@@ -9,7 +9,7 @@ import FirstFormContant from "@/components/Pages/FirstPage/firstForm";
 import SecondFormContant from "@/components/Pages/SecondPage/secondForm";
 import ThirdFormContant from "@/components/Pages/ThirdPage/thirdForm";
 
-const scoresObject: TScores = {
+const scoresDefaults: TScores = {
   q0: 5,
   q1: 5,
   q2: 5,
@@ -24,17 +24,17 @@ const scoresObject: TScores = {
 };
 
 export default function Home() {
-  const [scoresArray, setScoresArray] = useState<TScores>(scoresObject);
+  const [scoresObject, setScoresObject] = useState<TScores>(scoresDefaults);
 
   const totalScore = useMemo(() => {
-    const score = Object.values(scoresArray).reduce((acc, val) => acc + val, 0);
+    const score = Object.values(scoresObject).reduce((acc, val) => acc + val, 0);
     return score;
-  }, [scoresArray]);
+  }, [scoresObject]);
 
   const [step, setStep] = useState(1);
 
-  const updateScoresArray = (key: keyof TScores, value: number) => {
-    setScoresArray((prev) => ({ ...prev, [key]: value }));
+  const updateScoresObject = (key: keyof TScores, value: number) => {
+    setScoresObject((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -44,16 +44,16 @@ export default function Home() {
       {step === 1 && (
         <FirstFormContant
           nextStep={() => setStep(2)}
-          scoresArray={scoresArray}
-          updateScoresArray={updateScoresArray}
+          scoresObject={scoresObject}
+          updateScoresObject={updateScoresObject}
         />
       )}
       {step === 2 && (
         <SecondFormContant
           prevStep={() => setStep(1)}
           nextStep={() => setStep(3)}
-          scoresArray={scoresArray}
-          updateScoresArray={updateScoresArray}
+          scoresObject={scoresObject}
+          updateScoresObject={updateScoresObject}
         />
       )}
       {step === 3 && (

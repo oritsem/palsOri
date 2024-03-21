@@ -13,15 +13,15 @@ import { TScores } from "../../../utils/scores";
 interface ISecondFormProps {
   prevStep: () => void;
   nextStep: () => void;
-  scoresArray: TScores;
-  updateScoresArray: (key: keyof TScores, value: number) => void;
+  scoresObject: TScores;
+  updateScoresObject: (key: keyof TScores, value: number) => void;
 }
 
 const SecondFormContant = ({
   prevStep,
   nextStep,
-  scoresArray,
-  updateScoresArray,
+  scoresObject,
+  updateScoresObject,
 }: ISecondFormProps) => {
   return (
     <div className="px-4 w-full bg-gray-50 h-auto flex justify-center items-center text-center p-10">
@@ -37,8 +37,8 @@ const SecondFormContant = ({
             values={{ val1: "לא", val2: "כן" }}
             scores={{ score1: 10, score2: 5 }}
             index={8}
-            scoresArray={scoresArray}
-            updateScoresArray={updateScoresArray}
+            scoresObject={scoresObject}
+            updateScoresObject={updateScoresObject}
           >
             האם יש לך מנוי לחדר כושר?
           </QuestionRadio>
@@ -47,8 +47,8 @@ const SecondFormContant = ({
             values={{ val1: "לא", val2: "כן" }}
             scores={{ score1: 0, score2: 5 }}
             index={9}
-            scoresArray={scoresArray}
-            updateScoresArray={updateScoresArray}
+            scoresObject={scoresObject}
+            updateScoresObject={updateScoresObject}
           >
             האם הרופא אמר לך שאתה חייב לשפר את הכושר ולהתחיל להתאמן?
           </QuestionRadio>
@@ -57,8 +57,8 @@ const SecondFormContant = ({
             values={{ val1: "בקבוצה", val2: "לבד" }}
             scores={{ score1: 0, score2: 5 }}
             index={10}
-            scoresArray={scoresArray}
-            updateScoresArray={updateScoresArray}
+            scoresObject={scoresObject}
+            updateScoresObject={updateScoresObject}
           >
             איך אתה מעדיף להתאמן?
           </QuestionRadio>
